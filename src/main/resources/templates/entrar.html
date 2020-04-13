@@ -1,0 +1,90 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>EmpleosApp | Formulario de registro</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">
+    <link th:href="@{/bootstrap/css/sticky-footer-navbar.css}" rel="stylesheet">
+  </head>
+
+  <body>
+  <header>
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">TiendaVirtual</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarsExampleDefault"
+				aria-controls="navbarsExampleDefault" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a class="nav-link"
+						href="/articulos/chaquetas">Chaquetas</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/articulos/pantalones">Pantalones</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/articulos/polos">Polos</a></li>
+				</ul>				
+			</div>
+		</nav>
+	</header> 
+
+    <main role="main">   
+   		 <div th:if="${msg != null}" class='alert alert-info' th:text="${msg}" role='alert'></div>   
+      <hr>
+      <div class="container"> 
+
+        <div class="card">
+          <h4 class="card-header"><strong>Formulario para entrar en la aplicacion</strong></h4>              
+          <div class="card-body">
+            <form th:action="@{/entrar}" th:object="${usuario}" method="post">              
+              <div class="row">                   
+                <div class="col-md-3"> 
+                  <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" th:field="*{username}" id="username" name="username" placeholder="Escriba su nombre de usuario" required="required">
+                  </div>
+                </div>
+                <div class="col-md-3"> 
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" th:field="*{password}" id="password" name="password" placeholder="Escriba su clave de acceso" required="required">
+                  </div>
+                </div>
+              </div>                  
+              <hr>
+              <button type="entrar" title="Quiero entrar." class="btn btn-primary">Entrar</button>  
+            </form>
+          </div>
+        </div>
+      </div> <!-- /container -->
+
+    </main>
+    
+    <footer class="footer">
+		<div class="container">
+			<p>
+				&copy; 2020 TiendaVirtual, Inc. | WebApp Desarrollada con Spring
+				Boot 2.1.4 | Autor: Arturo Ramirez Camino | &middot; <a href="#">Privacy</a>
+				&middot; <a href="#">Terms</a>
+			</p>
+		</div>
+	</footer>
+    
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> 
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>     
+  </body>
+</html>

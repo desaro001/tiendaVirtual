@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="favicon.ico">
+
+<title>tiendaVirtual | Aplicación que ejecuta una tienda
+	virtual.</title>
+<!-- Bootstrap core CSS -->
+<link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">
+<link th:href="@{/bootstrap/css/sticky-footer-navbar.css}"
+	rel="stylesheet">
+<link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+	rel="stylesheet">
+</head>
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">TiendaVirtual</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarsExampleDefault"
+				aria-controls="navbarsExampleDefault" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a class="nav-link"
+						href="/articulos/chaquetas">Chaquetas</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/articulos/pantalones">Pantalones</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/articulos/polos">Polos</a></li>
+					<li th:if="${userNombre != ' '}" class="nav-item">
+						<div style="padding-left: 160px">
+							<h6 class="nav-link"><span th:text="${userNombre}"></span></h6>
+						</div>
+					</li>
+				</ul>
+				<a class="btn btn-primary" th:href="@{/pedido/index(idUser=${userId})}">Pedidos</a>&nbsp;
+				<div style="padding-right: 80px;padding-left: 10px;"> 
+					<a id="cesta" th:href="@{/cesta/index(idUser=${userId})}">
+					<img src="/images/cesta.jpg" width="35" height="35"></a>
+				</div>				
+				<a class="btn btn-primary" th:href="@{/entrar}">Ingresar</a>&nbsp;
+				<a class="btn btn-primary" th:href="@{/signup}">Registrarse</a>
+			</div>
+		</nav>
+	</header>
+
+	<main role="main"> 
+
+		<!-- Main jumbotron for a primary marketing message or call to action -->
+		<div class="jumbotron">
+			<div class="container">
+				<h3>Filtra el tipo de ropa que estas buscando.</h3>
+				<hr>
+				<form class="form-inline" action="/search" method="get">
+					<select class="custom-select custom-select mb-3" id="categoria.id"
+						name="tipo">
+						<option value="0">Seleccione una categoría</option>
+						<option value="1">Polos de hombre</option>
+						<option value="2">Pantalones de hombre</option>
+						<option value="3">Chaquetas de hombre</option>
+					</select>&nbsp;
+					<button type="submit" class="btn btn-primary mb-3">Buscar</button>
+				</form>
+			</div>
+		</div>
+
+		<div th:if="${msg != null}" class='alert alert-info' th:text="${msg}" role='alert'></div> 
+		
+		<div class="container">
+			<h3 class="font-weight-bold text-center text-capitalize">
+				<span th:text="${titulo}"></span>
+				<span th:text="${userId}" style="visibility: hidden"></span>
+			</h3>
+			<hr>
+			<div class="row" th:each="articulo : ${articulos}">
+				<div class="col-md-3">
+					<img class="rounded mx-auto d-block"
+						th:src="@{/images/{img} (img=${articulo.imagen})}"
+						alt="Generic placeholder image" width="120" height="180">
+				</div>
+				<div class="col-md-9">
+					<h4>
+						Referencia : <span th:text="${articulo.nombre}"></span> <span
+							th:text="${articulo.id}" style="visibility: hidden"></span>							 
+					</h4>
+					<h6 class="card-title">
+						<strong>Categoría: </strong> <span>Polo de Hombre</span>
+					</h6>
+					<h6 class="card-title">
+						<strong>Precio: </strong> <span th:text="${articulo.precio}">
+							€</span>
+					</h6>
+					<p th:text="${articulo.descripcion}"></p>
+					<p>						
+							<a th:href="@{/articulo/cesta(idArticulo=${articulo.id},idUser=${userId})}"
+							class="btn btn-outline-success" role="button">Añadir a la
+							cesta &raquo;</a>
+					</p>
+				</div>
+			</div>
+			<hr>
+
+		</div>
+		<!-- /container -->
+
+	</main>
+
+	<footer class="footer">
+		<div class="container">
+			<p>
+				&copy; 2020 TiendaVirtual, Inc. | WebApp Desarrollada con Spring
+				Boot 2.1.4 | Autor: Arturo Ramirez Camino | &middot; <a href="#">Privacy</a>
+				&middot; <a href="#">Terms</a>
+			</p>
+		</div>
+	</footer>
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="favicon.ico">
+
+<title>tiendaVirtual | Aplicación que ejecuta una tienda
+	virtual.</title>
+<!-- Bootstrap core CSS -->
+<!-- Bootstrap core CSS -->
+<link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">
+<link th:href="@{/bootstrap/css/sticky-footer-navbar.css}"
+	rel="stylesheet">
+<link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+	rel="stylesheet">
+</head>
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="/">TiendaVirtual</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarsExampleDefault"
+				aria-controls="navbarsExampleDefault" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a class="nav-link"
+						href="/articulos/chaquetas">Chaquetas</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/articulos/pantalones">Pantalones</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/articulos/polos">Polos</a></li>
+					<li th:if="${userNombre != ' '}" class="nav-item">
+						<div style="padding-left: 160px">
+							<h6 class="nav-link"><span th:text="${userNombre}"></span></h6>
+						</div>
+					</li>
+				</ul>
+				<a class="btn btn-primary" th:href="@{/pedido/index(idUser=${userId})}"></a>&nbsp;
+				<div style="padding-right: 80px;padding-left: 10px;"> 
+					<a id="cesta" th:href="@{/cesta/index(idUser=${userId})}">
+					<img src="/images/cesta.jpg" width="35" height="35"></a>
+				</div>				
+				<a class="btn btn-primary" th:href="@{/entrar}">Ingresar</a>&nbsp;
+				<a class="btn btn-primary" th:href="@{/signup}">Registrarse</a>
+			</div>
+		</nav>
+	</header>
+
+	<main role="main">
+		<hr>
+		<div class="container">
+
+			<div class="card">
+				<h4 class="card-header">
+					<strong>Cesta<span th:text="${cestaActiva.id}" style="visibility: hidden"></span></strong>
+				</h4>												
+				<div class="card-body">	
+				<a class="btn btn-primary" th:href="@{/pedido/alta(idCesta=${cestaActiva.id})}" role="button">
+				<i class="fas fa-file" aria-hidden="true"></i> Pedido</a>            
+           		 <hr>				
+					  <div th:if="${msg != null}" class='alert alert-success' th:text="${msg}" role='alert'></div> 					
+					<table class="table table-hover">
+						<thead class="thead-light">
+							<tr>
+								<th scope="col">Id</th>
+								<th scope="col">Imagen</th>
+								<th scope="col">Cantidad</th>
+								<th scope="col">Descripción</th>
+								<th scope="col">Precio</th>								
+								<th scope="col">Eliminar</th>
+							</tr>
+						</thead>												
+						<tbody>
+							
+							<tr th:each="articulo : ${articulos}" >
+									<td th:text="${articulo.id}"></td>																
+									<td>
+									 	<div class="col-md-3">
+											<img class="rounded mx-auto d-block" th:src="@{/images/{img} (img=${articulo.imagen})}"
+											alt="Generic placeholder image" width="40" height="60">
+										</div> 
+									</td> 
+									<td>1</td>
+									<td th:text="${articulo.descripcion}"></td>									
+									<td th:text="${articulo.precio}"> €</td>	
+									
+									<td><a th:href="@{/articulo/cesta/delete(idArticulo=${articulo.id},idCesta=${cestaActiva.id})}"
+										
+										onclick="return confirm('¿Estas seguro?')"
+										class="btn btn-success btn-sm" role="button" title="Eliminar"><i
+										class="fas fa-trash" aria-hidden="true"></i></a>
+									</td>
+							</tr>						
+
+						</tbody>
+						<tfoot class="thead-light">
+							<tr>
+								<th scope="col">Articulos</th>
+								<th scope="col">Precio final </th>
+								<th scope="col"></th>
+								<th scope="col">Fecha alta</th>																
+								<th scope="col"></th>									
+								<th scope="col">Cesta</th>									
+							</tr>
+							<tr>
+								<td th:text="${numArticulos}" scope="col"></td>
+								<td th:text="${cestaActiva.importe}" scope="col"></td>
+								<td scope="col"></td>
+								<td th:text="${cestaActiva.fecha}" scope="col"></td>																
+								<td scope="col"></td>								
+								<td th:text="${cestaActiva.id}" scope="col"></td>										
+							</tr>
+						</tfoot>
+					</table>								
+
+				</div>
+			</div>
+		</div>
+		<!-- /container -->
+
+	</main>
+
+	<footer class="footer">
+		<div class="container">
+			<p>
+				&copy; 2020 TiendaVirtual, Inc. | WebApp Desarrollada con Spring
+				Boot 2.1.4 | Autor: Arturo Ramirez Camino | &middot; <a href="#">Privacy</a>
+				&middot; <a href="#">Terms</a>
+			</p>
+		</div>
+	</footer>
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>
