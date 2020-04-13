@@ -79,7 +79,7 @@ public class HomeControler {
 		model.addAttribute("titulo", varTitulo);
 		model.addAttribute("userId", UsuarioController.userId);
 		model.addAttribute("userNombre", UsuarioController.userNombre);
-		return "home";
+		return "home"; 
 	}
 
 	@GetMapping("/search")
