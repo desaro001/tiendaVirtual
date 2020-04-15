@@ -76,9 +76,11 @@
 			</div>
 		</div>
 
-		<div th:if="${msg != null}" class='alert alert-info' th:text="${msg}" role='alert'></div> 
+		<div style="max-width: 300px; margin: auto;" th:if="${msg != null}" class='alert alert-info'
+		 th:text="${msg}" role='alert'></div> 
 		
 		<div class="container">
+		<div th:if="${msg != null}"><br></div>
 			<h3 class="font-weight-bold text-center text-capitalize">
 				<span th:text="${titulo}"></span>
 				<span th:text="${userId}" style="visibility: hidden"></span>
