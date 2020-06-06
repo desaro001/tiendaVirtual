@@ -40,14 +40,15 @@ public class PedidoController {
 		numArticulos = 0;
 		String tipo = "p";
 		List<Pedido> listPedidoswk = new ArrayList<Pedido>();
+		List<Cesta> listPedidos = new ArrayList<Cesta>();
 
 		if (UsuarioController.userId == 0) {
 			attributes.addFlashAttribute("msg", "para acceder a tus pedidos tienes que entrar con tu usuario");
 			return "redirect:/";
 		}
 
-		List<Cesta> listPedidos = serviceCestas.buscarPedidos(UsuarioController.userId, tipo);
-		if (listPedidos == null) {
+		listPedidos = serviceCestas.buscarPedidos(UsuarioController.userId, tipo);
+		if (listPedidos.size() == 0) {
 			attributes.addFlashAttribute("msg", "no has hecho ningún pedido!");
 			return "redirect:/";
 		}
